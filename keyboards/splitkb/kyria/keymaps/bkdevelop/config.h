@@ -26,3 +26,5 @@
 
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
+
+#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC

@@ -38,6 +38,21 @@ enum layers {
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
 #define ALT_ENT MT(MOD_LALT, KC_ENT)
 
+// german chars
+enum unicode_names { AE_LC, AE_UC, OE_LC, OE_UC, UE_LC, UE_UC, SZ, EUR, GBP };
+
+const uint32_t PROGMEM unicode_map[] = {
+    [AE_LC] = 0x00E4, // ä
+    [AE_UC] = 0x00C4, // Ä
+    [OE_LC] = 0x00F6, // ö
+    [OE_UC] = 0x00D6, // Ö
+    [UE_LC] = 0x00FC, // ü
+    [UE_UC] = 0x00DC, // Ü
+    [SZ]    = 0x00DF, // ß
+    [EUR]   = 0x20AC, // €
+    [GBP]   = 0x00A3  // £
+};
+
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
@@ -80,26 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
-/*
- * Sym Layer: Numbers and symbols
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |    ~   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  |      |   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-
     [_SYM] = LAYOUT(
-    KC_GRV,  KC_1, KC_2, KC_3,    KC_4,    KC_5,                                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-    KC_PIPE, KC_5, KC_6, KC_7,    KC_8,    _______,                                          _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_EQL, 
-    KC_TILD, KC_9, KC_0, KC_MINS, KC_EQL,  _______, KC_TRNS, KC_TRNS       KC_TRNS, KC_TRNS, _______, _______, _______, _______, _______, _______,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    KC_GRV,  KC_1, KC_2, KC_3,    KC_4,    KC_5,                                             KC_6,         KC_7,            KC_8,             KC_9,             KC_0,       KC_MINS,
+    KC_PIPE, KC_5, KC_6, KC_7,    KC_8,    _______,                                          _______,      KC_LSFT,         KC_LCTL,          KC_LALT,          KC_LGUI,    KC_EQL, 
+    KC_TILD, KC_9, KC_0, KC_MINS, KC_EQL,  _______, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XP(EUR, GBP), XP(AE_LC,AE_UC), XP(OE_LC, OE_UC), XP(UE_LC, UE_UC), XP(SZ, SZ), _______,
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,         KC_TRNS
     ),
 
     [_FUNCTION] = LAYOUT(
@@ -111,22 +111,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Adjust Layer: Default layer settings, RGB
  *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |QWERTY|      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |Gaming|      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
+ * ,------------------------------------------------------.                                       ,-------------------------------------------.
+ * |        |      |      | QWERTY | UNICODE_WINC  |      |                                       |      |      |      |      |      |        |
+ * |--------+------+------+--------+---------------+------|                                       |------+------+------+------+------+--------|
+ * |        |      |      | Gaming | UNICODE_LINUX |      |                                       | TOG  | SAI  | HUI  | VAI  | MOD  |        |
+ * |--------+------+------+--------+---------------+------+------+------.           ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |        | UNICODE_MACOS |      |      |      |           |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
+ * `----------------------+--------+---------------+------+------+------|           |------+------+------+------+------+----------------------'
+ *                        |        |               |      |      |      |           |      |      |      |      |      |
+ *                        |        |               |      |      |      |           |      |      |      |      |      |
+ *                        `---------------------------------------------'           `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, GAMING , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
-      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
-                                 _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, QWERTY , UC_M_WC, _______,                                            _______, _______, _______, _______, _______ , _______,
+      _______, _______, _______, GAMING , UC_M_LN, _______,                                            RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD , _______,
+      _______, _______, _______, _______, UC_M_MA, _______,_______, _______,         _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
+                                 _______, _______, _______,_______, _______,         _______, _______, _______, _______, _______
     ),
 
 // /*
@@ -175,7 +175,7 @@ bool oled_task_user(void) {
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state|default_layer_state)) {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
             case _QWERTY:
                 oled_write_P(PSTR("QWERTY\n"), false);
                 break;
@@ -200,8 +200,8 @@ bool oled_task_user(void) {
 
         // Write host Keyboard LED Status to OLEDs
         led_t led_usb_state = host_keyboard_led_state();
-        oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
     } else {
         // clang-format off
@@ -224,7 +224,6 @@ bool oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -243,4 +242,3 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
-
