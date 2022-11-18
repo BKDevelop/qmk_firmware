@@ -28,18 +28,23 @@ enum layers {
 #define QWERTY DF(_QWERTY)
 #define GAMING DF(_GAMING)
 
-#define SYM MO(_SYM)
-#define NAV MO(_NAV)
+#define SYM    MO(_SYM)
+#define NAV    MO(_NAV)
 #define FKEYS MO(_FUNCTION)
 #define ADJUST MO(_ADJUST)
 
-#define CTL_ESC MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT MT(MOD_LALT, KC_ENT)
-
 // german chars
-enum unicode_names { AE_LC, AE_UC, OE_LC, OE_UC, UE_LC, UE_UC, SZ, EUR, GBP };
+enum unicode_names { 
+    AE_LC,
+    AE_UC,
+    OE_LC,
+    OE_UC,
+    UE_LC,
+    UE_UC, 
+    SZ,
+    EUR,
+    GBP,
+};
 
 const uint32_t PROGMEM unicode_map[] = {
     [AE_LC] = 0x00E4, // ä
@@ -63,15 +68,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
     KC_ESC  , KC_Q , KC_W , KC_E  , KC_R  , KC_T ,                                               KC_Y , KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
     KC_TAB  , KC_A , KC_S , KC_D  , KC_F  , KC_G ,                                               KC_H , KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_QUOT,
-    KC_LALT , KC_Z , KC_X , KC_C  , KC_V  , KC_B    , KC_DEL , KC_CAPS ,       MO(5) , KC_LGUI , KC_N , KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_BSLS,
-                            MO(6) , MO(3) , KC_LSFT , KC_SPC , KC_LCTL ,       MO(4) , KC_ENT , KC_LBRC , KC_RBRC , KC_RALT
+    KC_LALT , KC_Z , KC_X , KC_C  , KC_V  , KC_B    , KC_DEL , KC_CAPS ,       FKEYS , KC_LGUI , KC_N , KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_BSLS,
+                            ADJUST , NAV , KC_LSFT , KC_SPC , KC_LCTL ,       SYM , KC_ENT , KC_LBRC , KC_RBRC , KC_RALT
     ),
 
     [_GAMING] = LAYOUT(
     KC_T, KC_TAB , KC_Q, KC_W  , KC_E   , KC_R,                                        KC_Y   , KC_U   , KC_I,    KC_O,   KC_P   , KC_BSPC, 
     KC_G, KC_LSFT, KC_A, KC_S  , KC_D   , KC_F,                                        KC_BSLS, KC_J   , KC_K,    KC_L,   KC_SCLN, KC_DEL, 
-    KC_B, KC_LCTL, KC_Z, KC_X  , KC_C   , KC_V, KC_H  , KC_CAPS,     MO(5)  , KC_LGUI, KC_RBRC, KC_QUOT, KC_COMM, KC_DOT, KC_SLSH, KC_RALT, 
-                         KC_ESC, KC_LALT, KC_N, KC_SPC, KC_M,        MO(4)  , KC_ENT , KC_LBRC, MO(3)  , MO(6)
+    KC_B, KC_LCTL, KC_Z, KC_X  , KC_C   , KC_V, KC_H  , KC_CAPS,     FKEYS  , KC_LGUI, KC_RBRC, KC_QUOT, KC_COMM, KC_DOT, KC_SLSH, KC_RALT, 
+                         KC_ESC, KC_LALT, KC_N, KC_SPC, KC_M,        SYM  , KC_ENT , KC_LBRC, NAV  , ADJUST
     ),
 
 /*
@@ -89,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_MPLY , KC_END , KC_VOLU, KC_DEL,
-      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_LEFT, KC_DOWN, KC_UP   , KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______, KC_PGDN, KC_MPRV, KC_PAUSE, KC_MNXT, KC_MUTE, KC_PSCR,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______,                                        KC_PGUP, KC_HOME, KC_MPLY , KC_END , KC_VOLU, KC_DEL,
+      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                        KC_LEFT, KC_DOWN, KC_UP   , KC_RGHT, KC_VOLD, KC_INS,
+      _______, _______, _______, _______, _______, _______, _______, KC_SLCK,    _______, _______, KC_PGDN, KC_MPRV, KC_PAUSE, KC_MNXT, KC_MUTE, KC_PSCR,
+                                 _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
     ),
 
     [_SYM] = LAYOUT(
@@ -115,18 +120,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      | QWERTY | UNICODE_WINC  |      |                                       |      |      |      |      |      |        |
  * |--------+------+------+--------+---------------+------|                                       |------+------+------+------+------+--------|
  * |        |      |      | Gaming | UNICODE_LINUX |      |                                       | TOG  | SAI  | HUI  | VAI  | MOD  |        |
- * |--------+------+------+--------+---------------+------+------+------.           ,-------------+------+------+------+------+------+--------|
- * |        |      |      |        | UNICODE_MACOS |      |      |      |           |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
- * `----------------------+--------+---------------+------+------+------|           |------+------+------+------+------+----------------------'
- *                        |        |               |      |      |      |           |      |      |      |      |      |
- *                        |        |               |      |      |      |           |      |      |      |      |      |
- *                        `---------------------------------------------'           `----------------------------------'
+ * |--------+------+------+--------+---------------+------+------+--------.           ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |        | UNICODE_MACOS |      |      | NumLck |           |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
+ * `----------------------+--------+---------------+------+------+--------|           |------+------+------+------+------+----------------------'
+ *                        |        |               |      |      |        |           |      |      |      |      |      |
+ *                        |        |               |      |      |        |           |      |      |      |      |      |
+ *                        `-----------------------------------------------'           `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, QWERTY , UC_M_WC, _______,                                            _______, _______, _______, _______, _______ , _______,
-      _______, _______, _______, GAMING , UC_M_LN, _______,                                            RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD , _______,
-      _______, _______, _______, _______, UC_M_MA, _______,_______, _______,         _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
-                                 _______, _______, _______,_______, _______,         _______, _______, _______, _______, _______
+      _______, _______, _______, QWERTY , UC_M_WC, _______,                                                _______, _______, _______, _______, _______ , _______,
+      _______, _______, _______, GAMING , UC_M_LN, _______,                                                RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD , _______,
+      _______, _______, _______, _______, UC_M_MA, _______,_______, KC_NUM_LOCK,         _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
+                                 _______, _______, _______,_______, _______,             _______, _______, _______, _______, _______
     ),
 
 // /*
@@ -222,23 +227,3 @@ bool oled_task_user(void) {
 }
 #endif
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-    return false;
-}
-#endif
