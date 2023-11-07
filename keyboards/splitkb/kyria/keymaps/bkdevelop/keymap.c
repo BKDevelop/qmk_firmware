@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_GAMING] = LAYOUT(
-    KC_G, KC_TAB , KC_Q, KC_W            , KC_E   , KC_R,                                        KC_Y   , KC_U   , KC_I,    KC_O,   KC_P   , KC_BSPC,
+    KC_TAB, KC_G,  KC_Q, KC_W            , KC_E   , KC_R,                                        KC_Y   , KC_U   , KC_I,    KC_O,   KC_P   , KC_BSPC,
     KC_T, KC_LSFT, KC_A, KC_S            , KC_D   , KC_F,                                        KC_BSLS, KC_J   , KC_K,    KC_L,   KC_SCLN, KC_DEL,
     KC_B, KC_LCTL, KC_Z, KC_X            , KC_C   , KC_V, LT(_SYM, KC_H), KC_CAPS,     FKEYS  , KC_LGUI, KC_RBRC, KC_QUOT, KC_COMM, KC_DOT, KC_SLSH, KC_RALT,
                          LT(_FUNCTION, KC_ESC), KC_LALT, KC_N, KC_SPC, KC_M,        SYM  , KC_ENT , KC_LBRC, NAV  , ADJUST
@@ -103,15 +103,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
     KC_GRV,  KC_1, KC_2, KC_3,    KC_4,    KC_5,                                             KC_6,         KC_7,            KC_8,             KC_9,             KC_0,       KC_MINS,
     KC_PIPE, KC_5, KC_6, KC_7,    KC_8,    _______,                                          _______,      KC_LSFT,         KC_LCTL,          KC_LALT,          KC_LGUI,    KC_EQL,
-    KC_TILD, KC_9, KC_0, KC_MINS, KC_EQL,  _______, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, XP(EUR, GBP), XP(AE_LC,AE_UC), XP(OE_LC, OE_UC), XP(UE_LC, UE_UC), XP(SZ, SZ), _______,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,         KC_TRNS
+    KC_TILD, KC_9, KC_0, KC_MINS, KC_EQL,  _______, KC_TRNS, KC_TRNS,      _______, _______, XP(EUR, GBP), XP(AE_LC,AE_UC), XP(OE_LC, OE_UC), XP(UE_LC, UE_UC), XP(SZ, SZ), _______,
+                         _______, _______, _______, KC_TRNS, _______,      _______, KC_TRNS, _______,      _______,         KC_TRNS
     ),
 
     [_FUNCTION] = LAYOUT(
      _______, KC_F1, KC_F2, KC_F3,    KC_F4,   KC_F5,                                            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
      _______, KC_F5, KC_F6, KC_F7,    KC_F8,   _______,                                          _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_F12,
-     _______, KC_F9, KC_F10, KC_F11,  KC_F12,  _______, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, _______, _______, _______, _______, _______, _______,
-                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+     _______, KC_F9, KC_F10, KC_F11,  KC_F12,  _______, KC_TRNS, KC_TRNS,      _______, _______, _______, _______, _______, _______, _______, _______,
+                             _______, _______, _______, KC_TRNS, _______,      _______, KC_TRNS, _______, _______, KC_TRNS
     ),
 /*
  * Adjust Layer: Default layer settings, RGB
